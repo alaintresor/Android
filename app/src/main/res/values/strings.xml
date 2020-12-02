@@ -18,4 +18,8 @@
     <string name="comment">Comment</string>
     <string name="more">More</string>
     <string name="share">Share</string>
+    <string name="title_activity_single_product">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
