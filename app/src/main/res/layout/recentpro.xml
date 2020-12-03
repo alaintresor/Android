@@ -8,8 +8,11 @@
     <LinearLayout
         android:id="@+id/link"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_height="wrap_content">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
@@ -21,7 +24,7 @@
             app:srcCompat="@drawable/a1" />
 
         <TextView
-            android:id="@+id/proName"
+            android:id="@+id/catName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="38dp"
@@ -33,8 +36,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="133dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="38dp"
             android:layout_marginLeft="38dp"
             android:layout_marginTop="50dp"

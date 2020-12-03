@@ -28,7 +28,7 @@ public class SimilarAdpter extends ArrayAdapter<setSimilarData> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(resource, null, false);
-        TextView name=view.findViewById(R.id.textTitle);
+        TextView name=view.findViewById(R.id.proName);
         final com.example.agrmangement.setSimilarData setSimilarDataNew =setSimilarData.get(position);
         name.setText(setSimilarDataNew.getName());
 
