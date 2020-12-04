@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,15 +38,23 @@ public class catAdpter extends ArrayAdapter<catSetData> {
         View view = layoutInflater.inflate(resource, null, false);
 
         TextView catName = view.findViewById(R.id.catName);
+        TextView description = view.findViewById(R.id.dc);
+        ImageView image=view.findViewById(R.id.catImage);
         LinearLayout Link = view.findViewById(R.id.link);
         final com.example.agrmangement.catSetData catSetDataNew = catSetData.get(position);
         catName.setText(catSetDataNew.getCatName());
-        Link.setOnClickListener(new View.OnClickListener() {
+        description.setText(catSetDataNew.getDescription());
+        Picasso.get().load(catSetDataNew.getImage()).into(image);
+
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, singleProduct.class);
+//                <<<<<<<<<<<<<<<<<<<<<<<<<<<hano uhakosore mn>>>>>>>>>>>>>>>>>>>>>
+                Intent intent=new Intent(getContext(),singleProduct.class);
                 context.startActivity(intent);
-                Toast.makeText(context, catSetDataNew.getCatName(), Toast.LENGTH_LONG).show();
+//                finish();
+
+
 
             }
         });

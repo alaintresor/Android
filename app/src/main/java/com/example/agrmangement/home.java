@@ -20,7 +20,7 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),product.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
     }
