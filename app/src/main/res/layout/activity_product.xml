@@ -31,6 +31,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/cat1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -52,6 +53,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/cat2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -73,6 +75,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/cat3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -94,6 +97,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/cat4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -115,6 +119,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/cat5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -136,6 +141,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/cat6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
