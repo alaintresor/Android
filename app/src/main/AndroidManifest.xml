@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.agrmangement">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,18 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProductDetail"></activity>
-        <activity android:name=".SingleCategory" />
-        <activity android:name=".product" />
-        <activity
-            android:name=".Login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".home" >
+        <activity android:name=".cart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ProductDetail" />
+        <activity android:name=".SingleCategory" />
+        <activity android:name=".product" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".home">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".signUp"
@@ -29,7 +38,5 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".singleProduct" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
