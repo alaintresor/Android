@@ -40,25 +40,11 @@ public class catAdpter extends ArrayAdapter<catSetData> {
         TextView catName = view.findViewById(R.id.catName);
         TextView description = view.findViewById(R.id.dc);
         ImageView image=view.findViewById(R.id.catImage);
-        LinearLayout Link = view.findViewById(R.id.link);
+
         final com.example.agrmangement.catSetData catSetDataNew = catSetData.get(position);
         catName.setText(catSetDataNew.getCatName());
         description.setText(catSetDataNew.getDescription());
         Picasso.get().load(catSetDataNew.getImage()).into(image);
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                <<<<<<<<<<<<<<<<<<<<<<<<<<<hano uhakosore mn>>>>>>>>>>>>>>>>>>>>>
-                Intent intent=new Intent(getContext(),singleProduct.class);
-                context.startActivity(intent);
-//                finish();
-
-
-
-            }
-        });
-
 
         return view;
     }
