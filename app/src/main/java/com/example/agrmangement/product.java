@@ -29,8 +29,10 @@ public class product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
+        //actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Product Category");
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +50,7 @@ public class product extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                FetchData fetchData = new FetchData("http://192.168.43.208/android/products.php");
+                FetchData fetchData = new FetchData("http://192.168.43.120/android/products.php");
                 if (fetchData.startFetch()) {
                     if (fetchData.onComplete()) {
 //
