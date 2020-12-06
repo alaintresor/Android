@@ -19,6 +19,7 @@ public class cart extends AppCompatActivity {
         setCartData = new ArrayList<>();
         final ListView listView = (ListView) findViewById(R.id.cartList);
 
+
         setCartData.add(new setCartData("1", "", "Ibijumba","id","qty","price",""));
         setCartData.add(new setCartData("1", "", "Ibijumba","id","qty","price",""));
         setCartData.add(new setCartData("1", "", "Ibijumba","id","qty","price",""));
