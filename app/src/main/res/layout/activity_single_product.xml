@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/qty"
         android:layout_width="83dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
@@ -115,12 +115,12 @@
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:text="Order Now"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber"
+        app:layout_constraintEnd_toStartOf="@+id/addToCart"
+        app:layout_constraintStart_toEndOf="@+id/qty"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/addToCart"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="43dp"
         android:layout_height="33dp"
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/qty" />
 
     <TextView
         android:id="@+id/productDlts"

@@ -51,7 +51,11 @@ public class product extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
+//<<<<<<< HEAD
                 FetchData fetchData = new FetchData("http://192.168.43.120/android/products.php");
+//=======
+               // FetchData fetchData = new FetchData("http://169.254.189.156/android/products.php");
+//>>>>>>> 9b4c16fa6d9fca6109c6b630eb45035f8a13d688
                 if (fetchData.startFetch()) {
                     if (fetchData.onComplete()) {
 //
@@ -91,13 +95,16 @@ public class product extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String name,image,description,qty,price;
+                String id,name,image,description,qty,price;
+                id=catSetData.get(i).getId();
                 name=catSetData.get(i).getCatName();
                 image=catSetData.get(i).getImage();
                 qty=catSetData.get(i).getQty();
                 price=catSetData.get(i).getPrice();
                 description=catSetData.get(i).description;
+
                 Intent intent=new Intent(getApplicationContext(),singleProduct.class);
+                intent.putExtra("proId",id);
                 intent.putExtra("name",name);
                 intent.putExtra("image",image);
                 intent.putExtra("description",description);
