@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2020 at 07:28 PM
+-- Generation Time: Dec 07, 2020 at 01:07 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -25,35 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `cart`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
-  `p_name` varchar(40) NOT NULL,
-  `p_qty` int(11) NOT NULL,
-  `p_Uprice` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `image` varchar(400) NOT NULL,
-  `shareholder_id` int(11) NOT NULL
+  `cust_id` varchar(20) NOT NULL,
+  `pro_id` varchar(20) NOT NULL,
+  `pro_image` varchar(400) NOT NULL,
+  `pro_name` varchar(40) NOT NULL,
+  `pro_price` varchar(40) NOT NULL,
+  `pro_qt` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `product`
+-- Dumping data for table `cart`
 --
 
-INSERT INTO `product` (`id`, `p_name`, `p_qty`, `p_Uprice`, `description`, `image`, `shareholder_id`) VALUES
-(1, 'Umuceri', 200, 700, 'Umuceri mwiza cne uhigwa mu gishanga cya huye', 'http://192.168.43.208/android/images/i.jpg', 0),
-(2, 'Amata', 39, 400, 'jhdhgjd bjkdsfjh', 'http://192.168.43.208/android/images/a1.jpg', 5);
+INSERT INTO `cart` (`id`, `cust_id`, `pro_id`, `pro_image`, `pro_name`, `pro_price`, `pro_qt`) VALUES
+(1, '1', '1', 'http://192.168.43.208/android/images/i.jpg', 'Umuceri', '700', '58'),
+(2, '1', '2', 'http://192.168.43.208/android/images/a1.jpg', 'Amata', '400', '10');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `product`
+-- Indexes for table `cart`
 --
-ALTER TABLE `product`
+ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -61,9 +61,9 @@ ALTER TABLE `product`
 --
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `cart`
 --
-ALTER TABLE `product`
+ALTER TABLE `cart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 

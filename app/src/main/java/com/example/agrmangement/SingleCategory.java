@@ -17,6 +17,7 @@ public class SingleCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_category);
+        getSupportActionBar().setTitle("Products");
         gridView = (GridView) findViewById(R.id.gridView);
         //create gridView Adpter Object
         GridAdpter gridAdpter = new GridAdpter(getApplicationContext(),images);
