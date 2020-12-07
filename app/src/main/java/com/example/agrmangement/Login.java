@@ -81,6 +81,11 @@ public class Login extends AppCompatActivity {
 
                                 }
                             }
+                            else
+                            {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(),"Network Error",Toast.LENGTH_SHORT).show();
+                            }
                             //End Write and Read data with URL
                         }
                     });

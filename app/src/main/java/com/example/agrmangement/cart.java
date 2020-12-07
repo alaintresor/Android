@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
@@ -19,6 +20,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class cart extends AppCompatActivity {
 
     @Override
@@ -29,9 +32,13 @@ public class cart extends AppCompatActivity {
         //get user ID
         final String userId = getIntent().getStringExtra("userId");
 
+        final TextView payOutTextView=(TextView)findViewById(R.id.payOut);
+
         final List<setCartData> setCartData;
         setCartData = new ArrayList<>();
         final ListView listView = (ListView) findViewById(R.id.cartList);
+
+        final int[] payOut = {0};
 
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -57,7 +64,7 @@ public class cart extends AppCompatActivity {
                                 JSONArray array = new JSONArray(result);
 
                                 for (int i = 0; i < array.length(); i++) {
-                                    int a = array.length();
+
                                     JSONObject object = array.getJSONObject(i);
                                     String id = object.getString("id");
                                     String proId = object.getString("proId");
@@ -65,12 +72,14 @@ public class cart extends AppCompatActivity {
                                     String proPrice = object.getString("proPrice");
                                     String proQty = object.getString("proQty");
                                     String proName = object.getString("proName");
+                                    payOut[0] = payOut[0] +(parseInt(proPrice)*parseInt(proQty));
 
                                     setCartData.add(new setCartData(id, proImage, proName, "u", "qty", proPrice, proQty));
 
                                 }
                                 cartAdpter cartAdpter = new cartAdpter(getApplicationContext(), R.layout.cart_item, setCartData);
                                 listView.setAdapter(cartAdpter);
+                                payOutTextView.setText(payOut[0]+" Frw");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -34,4 +34,6 @@ public class catSetData {
     public String getPrice() {
         return price;
     }
+
+
 }
