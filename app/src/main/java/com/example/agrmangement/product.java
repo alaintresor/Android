@@ -29,9 +29,11 @@ public class product extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        //get User Id
+        final String userId=getIntent().getStringExtra("userId");
+
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +51,7 @@ public class product extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                FetchData fetchData = new FetchData("http://169.254.189.156/android/products.php");
+                FetchData fetchData = new FetchData("http://192.168.43.208/android/products.php");
                 if (fetchData.startFetch()) {
                     if (fetchData.onComplete()) {
 //
@@ -83,6 +85,10 @@ public class product extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
                     }
                 }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "No Internet connection", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -97,7 +103,8 @@ public class product extends AppCompatActivity {
                 price=catSetData.get(i).getPrice();
                 description=catSetData.get(i).description;
 
-                Intent intent=new Intent(getApplicationContext(),singleProduct.class);
+                Intent intent=new Intent(product.this,singleProduct.class);
+                intent.putExtra("userId",userId);
                 intent.putExtra("proId",id);
                 intent.putExtra("name",name);
                 intent.putExtra("image",image);
@@ -106,7 +113,7 @@ public class product extends AppCompatActivity {
                 intent.putExtra("price",price);
                 intent.putExtra("description",description);
                 startActivity(intent);
-                finish();
+
             }
         });
 

@@ -45,7 +45,7 @@ public class singleProduct extends AppCompatActivity {
         final String price = getIntent().getStringExtra("price");
 
         //get Qty
-        final String qty = String.valueOf(qtyInput.getText());
+        //final String qty = String.valueOf(qtyInput.getText());
 
 //        final String username= String.valueOf(user.getText());
 
@@ -73,13 +73,13 @@ public class singleProduct extends AppCompatActivity {
                             field[5] = "proQty";
                             //Creating array for data
                             String[] data = new String[6];
-                            data[0] = "1";
+                            data[0] = userId;
                             data[1] = proId;
                             data[2] = image;
                             data[3] = name;
                             data[4] = price;
                             data[5] = qtyInput.getText().toString();
-                            PutData putData = new PutData("http://169.254.189.156/android/addToCart.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.43.208/android/addToCart.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
 //                                    progressBar.setVisibility(View.GONE);

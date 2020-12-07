@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -19,14 +20,34 @@ public class home extends AppCompatActivity {
         catSetData = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //get User Id
+        final String userId=getIntent().getStringExtra("userId");
+
         Button button=(Button)findViewById(R.id.btn1);
+        Button cart=(Button)findViewById(R.id.toBook);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),product.class);
+                Intent intent=new Intent(home.this,product.class);
+                intent.putExtra("userId",userId);
                 startActivity(intent);
-                finish();
-                catSetData.add(new catSetData("name", "description", "","id","qty","price"));
+
+
+            }
+        });
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(home.this,cart.class);
+                intent.putExtra("userId",userId);
+                startActivity(intent);
+
+
             }
         });
     }
