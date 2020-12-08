@@ -1,0 +1,15 @@
+#blockspace{
+    height: 5cm;
+}
+#login
+{
+    width: 60%;
+    margin-left: 20%;
+}
+@media (max-width: 600px) {
+    #login
+{
+    width: 100%;
+    margin-left: 0;
+}
+}

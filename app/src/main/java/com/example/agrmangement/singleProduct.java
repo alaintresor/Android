@@ -79,7 +79,7 @@ public class singleProduct extends AppCompatActivity {
                             data[3] = name;
                             data[4] = price;
                             data[5] = qtyInput.getText().toString();
-                            PutData putData = new PutData("http://192.168.43.208/android/addToCart.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.43.120/android/addToCart.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
 //                                    progressBar.setVisibility(View.GONE);

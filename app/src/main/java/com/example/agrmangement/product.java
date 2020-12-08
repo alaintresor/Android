@@ -1,12 +1,17 @@
 package com.example.agrmangement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -31,10 +36,19 @@ public class product extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-
-
+        Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Products");
+        setSupportActionBar(toolbar);
+      //  toolbar.setNavigationIcon(R.drawable.ic_add_shopping_cart);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(product.this, "tool bar", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         //get User Id
-        // final String userId=getIntent().getStringExtra("userId");
+        final String userId=getIntent().getStringExtra("userId");
 
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.vProgressBar);
@@ -61,7 +75,7 @@ public class product extends AppCompatActivity {
                 //Creating array for data
                 String[] data = new String[1];
                 data[0] = "available";
-                PutData putData = new PutData("http://192.168.43.208/android/recent_products.php", "POST", field, data);
+                PutData putData = new PutData("http://192.168.43.120/android/recent_products.php", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         progressBar.setVisibility(View.GONE);
@@ -77,7 +91,7 @@ public class product extends AppCompatActivity {
                                 String price = object.getString("price");
                                 String description = object.getString("description");
                                 String image = object.getString("image");
-                                Toast.makeText(getApplicationContext(), price, Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getApplicationContext(), price, Toast.LENGTH_SHORT).show();
                                 catSetData.add(new catSetData(name, description, image, id, qty, price));
 //                                String email = object.getString("email");
 //                                String username = object.getString("username");
@@ -111,7 +125,7 @@ public class product extends AppCompatActivity {
                 description = catSetData.get(i).description;
 
                 Intent intent = new Intent(product.this, singleProduct.class);
-                //intent.putExtra("userId",userId);
+                intent.putExtra("userId",userId);
                 intent.putExtra("proId", id);
                 intent.putExtra("name", name);
                 intent.putExtra("image", image);
@@ -124,5 +138,24 @@ public class product extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.bottom_nav_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.shop_cart:
+                Intent intent = new Intent(product.this,cart.class);
+                final String userId=getIntent().getStringExtra("userId");
+                intent.putExtra("userId",userId);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -13,13 +13,14 @@
         app:cardCornerRadius="5dp"
         android:layout_margin="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textTitle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsbold"
                 android:gravity="center"
@@ -27,22 +28,16 @@
                 android:textColor="@color/grey"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                 />
+
 
             <ImageView
                 android:id="@+id/listImage"
-                android:layout_width="0dp"
-                android:layout_height="214dp"
+                android:layout_width="match_parent"
+                android:layout_height="124dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/a3"
-                android:contentDescription="@string/title_listitems"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTitle" />
-
+                android:contentDescription="@string/title_listitems" />
 
             <TextView
                 android:id="@+id/textDescription"
@@ -53,35 +48,30 @@
                 android:padding="10dp"
                 android:text="Categories"
                 android:textSize="30dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listImage" />
+                />
 
             <Button
                 android:id="@+id/btn1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:background="#00BCD4"
                 android:text="Available Products"
                 android:textColor="#ffffff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textDescription" />
+                 />
 
             <Button
                 android:id="@+id/toBook"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:background="#03A9F4"
                 android:text="Products to book"
                 android:textColor="#ffffff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn1" />
+                 />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
 
 

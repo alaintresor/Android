@@ -11,7 +11,7 @@ public class GridAdpter extends BaseAdapter {
     Context context;
     int images[];
     LayoutInflater inflater;
-    public GridAdpter(Context applicationContext, int images[]){
+    public GridAdpter(Context applicationContext, int[] images){
         this.context=applicationContext;
         this.images=images;
         inflater=(LayoutInflater.from(applicationContext));

@@ -100,7 +100,7 @@ public class cartAdpter extends ArrayAdapter<setCartData> {
                         //Creating array for data
                         String[] data = new String[1];
                         data[0] = itemId;
-                        PutData putData = new PutData("http://192.168.43.208/android/remove_from_cart.php", "POST", field, data);
+                        PutData putData = new PutData("http://192.168.43.120/android/remove_from_cart.php", "POST", field, data);
                         if (putData.startPut()) {
                             String result = null;
                             if (putData.onComplete()) {
