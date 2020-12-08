@@ -48,7 +48,11 @@ public class product extends AppCompatActivity {
 //            }
 //        });
         //get User Id
+<<<<<<< HEAD
         final String userId=getIntent().getStringExtra("userId");
+=======
+        final String userId = getIntent().getStringExtra("userId");
+>>>>>>> 3af0021b7ca6fad4ca73f102d0c425750ee8e662
 
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.vProgressBar);
@@ -125,7 +129,11 @@ public class product extends AppCompatActivity {
                 description = catSetData.get(i).description;
 
                 Intent intent = new Intent(product.this, singleProduct.class);
+<<<<<<< HEAD
                 intent.putExtra("userId",userId);
+=======
+                intent.putExtra("userId", userId);
+>>>>>>> 3af0021b7ca6fad4ca73f102d0c425750ee8e662
                 intent.putExtra("proId", id);
                 intent.putExtra("name", name);
                 intent.putExtra("image", image);
