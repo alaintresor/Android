@@ -34,7 +34,7 @@ public class product extends AppCompatActivity {
 
 
         //get User Id
-        // final String userId=getIntent().getStringExtra("userId");
+        final String userId = getIntent().getStringExtra("userId");
 
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.vProgressBar);
@@ -111,7 +111,7 @@ public class product extends AppCompatActivity {
                 description = catSetData.get(i).description;
 
                 Intent intent = new Intent(product.this, singleProduct.class);
-                //intent.putExtra("userId",userId);
+                intent.putExtra("userId", userId);
                 intent.putExtra("proId", id);
                 intent.putExtra("name", name);
                 intent.putExtra("image", image);
