@@ -21,11 +21,11 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".ProductDetail" />
-        <activity android:name=".SingleCategory" />
-        <activity android:name=".product" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".ProductDetail"  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".SingleCategory"  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".product" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Login"
+            android:name=".Login" android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home">
+        <activity android:name=".home" android:screenOrientation="portrait">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -43,7 +43,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".signUp"
+            android:name=".signUp" android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".singleProduct" />
     </application>
