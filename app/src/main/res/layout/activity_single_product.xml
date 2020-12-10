@@ -104,12 +104,12 @@
         android:ems="10"
         android:hint="Qty(kg)"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/ordering"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ordering"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="42dp"
@@ -131,7 +131,7 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/ic_add_shopping_cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintStart_toEndOf="@+id/ordering"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
@@ -184,15 +184,18 @@
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
 
-    <ListView
-        android:id="@+id/list"
+
+    <GridView
+        android:id="@+id/MyList"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:scrollbars="vertical"
+        android:background="#DFE3E4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        android:numColumns="2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

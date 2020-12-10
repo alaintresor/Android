@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,6 +17,10 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +31,11 @@ public class singleProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
-        final ListView listView = (ListView) findViewById(R.id.list);
+        final List<catSetData> catSetData;
+        catSetData = new ArrayList<>();
+
+        final GridView listView = (GridView) findViewById(R.id.MyList);
+//        final ListView listView = (ListView) findViewById(R.id.list);
         final ImageView imagePro = (ImageView) findViewById(R.id.imagepro);
         final TextView namePro = (TextView) findViewById(R.id.name);
         final TextView productDlts = (TextView) findViewById(R.id.productDlts);
@@ -33,21 +43,67 @@ public class singleProduct extends AppCompatActivity {
         final TextView qtyInput = (TextView) findViewById(R.id.qty);
         final TextView UP = (TextView) findViewById(R.id.Uprice);
         Button addCart = (Button) findViewById(R.id.addToCart);
+        Button order = (Button) findViewById(R.id.ordering);
 
 
 //        Get data form product activity
         final String userId = getIntent().getStringExtra("userId");
+        final String status= getIntent().getStringExtra("status");
         final String proId = getIntent().getStringExtra("proId");
         final String name = getIntent().getStringExtra("name");
         final String image = getIntent().getStringExtra("image");
         final String description = getIntent().getStringExtra("description");
         final String avble = getIntent().getStringExtra("qty");
         final String price = getIntent().getStringExtra("price");
+        final String category=getIntent().getStringExtra("category");
 
-        //get Qty
-        //final String qty = String.valueOf(qtyInput.getText());
+        //Order product
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-//        final String username= String.valueOf(user.getText());
+                if (!qtyInput.getText().toString().equals("")) {
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            String[] field = new String[4];
+                            field[0] = "userId";
+                            field[1] = "proId";
+                            field[2] = "proQty";
+                            field[3] = "proPrice";
+
+                            //Creating array for data
+                            String[] data = new String[4];
+                            data[0] = userId;
+                            data[1] = proId;
+                            data[2] = qtyInput.getText().toString();
+                            data[3] = price;
+
+                            PutData putData = new PutData("http://192.168.43.208/android/ordering.php", "POST", field, data);
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+//                                    progressBar.setVisibility(View.GONE);
+                                    String result = putData.getResult();
+                                    qtyInput.setText("");
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            }
+                            //End Write and Read data with URL
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please proved qty", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
 
         //add to cart
         addCart.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +135,7 @@ public class singleProduct extends AppCompatActivity {
                             data[3] = name;
                             data[4] = price;
                             data[5] = qtyInput.getText().toString();
-                            PutData putData = new PutData("http://192.168.43.120/android/addToCart.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.43.208/android/addToCart.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
 //                                    progressBar.setVisibility(View.GONE);
@@ -108,13 +164,85 @@ public class singleProduct extends AppCompatActivity {
 
 
 //        Similar Products
-        final List<setSimilarData> setSimilarData;
-        setSimilarData = new ArrayList<>();
-        setSimilarData.add(new setSimilarData("umuceri"));
-        setSimilarData.add(new setSimilarData("ibyumbati"));
-        setSimilarData.add(new setSimilarData("umuceri"));
-        setSimilarData.add(new setSimilarData("ibyumbati"));
-        SimilarAdpter similarAdpter = new SimilarAdpter(this, R.layout.similarpro, setSimilarData);
-        listView.setAdapter(similarAdpter);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                String[] field = new String[3];
+                field[0] = "status";
+                field[1] = "category";
+                field[2]="proId";
+
+                //Creating array for data
+                String[] data = new String[3];
+                data[0] = status;
+                data[1]=category;
+                data[2]=proId;
+                PutData putData = new PutData("http://192.168.43.208/android/similarProducts.php", "POST", field, data);
+                if (putData.startPut()) {
+                    if (putData.onComplete()) {
+//                        //progressBar.setVisibility(View.GONE);
+                        try {
+                            JSONArray array = new JSONArray(putData.getResult());
+
+                            for (int i = 0; i < array.length(); i++) {
+                                int a = array.length();
+                                JSONObject object = array.getJSONObject(i);
+                                String id = object.getString("id");
+                                String name = object.getString("name");
+                                String qty = object.getString("qty");
+                                String price = object.getString("price");
+                                String description = object.getString("description");
+                                String image = object.getString("image");
+                                String category=object.getString("category");
+                                Toast.makeText(getApplicationContext(), price, Toast.LENGTH_SHORT).show();
+                                catSetData.add(new catSetData(name, description, image, id, qty, price,category));
+//                                String email = object.getString("email");
+//                                String username = object.getString("username");
+
+                            }
+                            catAdpter catAdpter = new catAdpter(getApplicationContext(), R.layout.gridviewitem, catSetData);
+                            listView.setAdapter(catAdpter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Internet connection", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String id, name, image, description, qty, price,category;
+                id = catSetData.get(i).getId();
+                name = catSetData.get(i).getCatName();
+                image = catSetData.get(i).getImage();
+                qty = catSetData.get(i).getQty();
+                price = catSetData.get(i).getPrice();
+                description = catSetData.get(i).description;
+                category=catSetData.get(i).getCategory();
+
+                Intent intent = new Intent(getApplicationContext(), singleProduct.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("status",status);
+                intent.putExtra("proId", id);
+                intent.putExtra("name", name);
+                intent.putExtra("image", image);
+                intent.putExtra("description", description);
+                intent.putExtra("qty", qty);
+                intent.putExtra("price", price);
+                intent.putExtra("description", description);
+                intent.putExtra("category",category);
+                startActivity(intent);
+
+            }
+        });
     }
 }

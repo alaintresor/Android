@@ -34,6 +34,7 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(home.this,product.class);
                 intent.putExtra("userId",userId);
+                intent.putExtra("status","available");
                 startActivity(intent);
 
 
@@ -43,8 +44,9 @@ public class home extends AppCompatActivity {
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(home.this,cart.class);
+                Intent intent=new Intent(home.this,product.class);
                 intent.putExtra("userId",userId);
+                intent.putExtra("status","unavailable");
                 startActivity(intent);
 
 

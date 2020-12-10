@@ -192,10 +192,13 @@
             android:visibility="gone"
             android:layout_marginTop="@android:dimen/thumbnail_height"
             />
-        <ListView
+        <GridView
             android:id="@+id/MyList"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="#DFE3E4"
+            android:numColumns="2"
+            />
 
     </LinearLayout>
 

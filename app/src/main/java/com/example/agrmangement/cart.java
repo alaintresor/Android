@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +33,16 @@ public class cart extends AppCompatActivity {
         //get user ID
         final String userId = getIntent().getStringExtra("userId");
 
-        final TextView payOutTextView=(TextView)findViewById(R.id.payOut);
+        final TextView payOutTextView = (TextView) findViewById(R.id.payOut);
+        final TextView isEmpty = (TextView) findViewById(R.id.isEmpty);
+        final TextView title = (TextView) findViewById(R.id.tatolTilte);
 
         final List<setCartData> setCartData;
         setCartData = new ArrayList<>();
         final ListView listView = (ListView) findViewById(R.id.cartList);
+        final Button order = (Button) findViewById(R.id.cartOrdering);
+        final View divider=(View) findViewById(R.id.divider3);
+
 
         final int[] payOut = {0};
 
@@ -53,7 +59,7 @@ public class cart extends AppCompatActivity {
                 //Creating array for data
                 String[] data = new String[1];
                 data[0] = userId;
-                PutData putData = new PutData("http://192.168.43.120/android/myCart.php", "POST", field, data);
+                PutData putData = new PutData("http://192.168.43.208/android/myCart.php", "POST", field, data);
                 if (putData.startPut()) {
                     String result = null;
                     if (putData.onComplete()) {
@@ -72,21 +78,25 @@ public class cart extends AppCompatActivity {
                                     String proPrice = object.getString("proPrice");
                                     String proQty = object.getString("proQty");
                                     String proName = object.getString("proName");
-                                    payOut[0] = payOut[0] +(parseInt(proPrice)*parseInt(proQty));
+                                    payOut[0] = payOut[0] + (parseInt(proPrice) * parseInt(proQty));
 
-                                    setCartData.add(new setCartData(id, proImage, proName, "u", "qty", proPrice, proQty));
+                                    setCartData.add(new setCartData(id, proId, proImage, proName, "u", "qty", proPrice, proQty));
 
                                 }
                                 cartAdpter cartAdpter = new cartAdpter(getApplicationContext(), R.layout.cart_item, setCartData);
                                 listView.setAdapter(cartAdpter);
-                                payOutTextView.setText(payOut[0]+" Frw");
+                                payOutTextView.setText(payOut[0] + " Frw");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                            isEmpty.setVisibility(View.VISIBLE);
+                            order.setVisibility(View.GONE);
+                            payOutTextView.setVisibility(View.GONE);
+                            divider.setVisibility(View.GONE);
+                            title.setVisibility(View.GONE);
                         }
                     } else {
                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
@@ -97,6 +107,92 @@ public class cart extends AppCompatActivity {
             }
             //End Write and Read data with URL
 
+        });
+
+
+        //order all form cart
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final int[] done = new int[1];
+                if (!setCartData.isEmpty()) {
+                    for (int i = 0; i < setCartData.toArray().length; i++) {
+                        final setCartData setCartDataNew = setCartData.get(i);
+                        final String c_proId = setCartDataNew.getProId();
+                        final String c_proQty = setCartDataNew.getQty();
+                        final String c_price = setCartDataNew.getPrice();
+
+                        Handler handler = new Handler(Looper.getMainLooper());
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                String[] field = new String[4];
+                                field[0] = "userId";
+                                field[1] = "proId";
+                                field[2] = "proQty";
+                                field[3] = "proPrice";
+
+                                //Creating array for data
+                                String[] data = new String[4];
+                                data[0] = userId;
+                                data[1] = c_proId;
+                                data[2] = c_proQty;
+                                data[3] = c_price;
+
+                                PutData putData = new PutData("http://192.168.43.208/android/ordering.php", "POST", field, data);
+                                if (putData.startPut()) {
+                                    if (putData.onComplete()) {
+//                                    progressBar.setVisibility(View.GONE);
+                                        String result = putData.getResult();
+
+                                        if (result.toString().equals("Product add into you Cart")) {
+                                            done[0] = 1;
+                                        } else {
+                                            done[0] = 0;
+                                        }
+
+
+                                    }
+                                }
+                                //End Write and Read data with URL
+                            }
+                        });
+                    }
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Starting Write and Read data with URL
+                            //Creating array for parameters
+                            String[] field = new String[1];
+                            field[0] = "userId";
+
+                            //Creating array for data
+                            String[] data = new String[1];
+                            data[0] = userId;
+                            PutData putData = new PutData("http://192.168.43.208/android/resetCart.php", "POST", field, data);
+                            if (putData.startPut()) {
+                                String result = null;
+                                if (putData.onComplete()) {
+                                    result = putData.getResult();
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                        }
+                        //End Write and Read data with URL
+
+                    });
+                }
+
+            }
         });
 
 

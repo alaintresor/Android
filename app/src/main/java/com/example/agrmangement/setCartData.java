@@ -4,9 +4,9 @@ import static java.lang.Integer.parseInt;
 
 public class setCartData {
 
-    String id,image,name,status,category,price,qty;
+    String id,proId,image,name,status,category,price,qty;
     int payOut=0;
-    public setCartData(String id,String image,String name,String status,String category,String price,String qty){
+    public setCartData(String id,String proId,String image,String name,String status,String category,String price,String qty){
         this.id=id;
         this.image=image;
         this.name=name;
@@ -14,11 +14,16 @@ public class setCartData {
         this.category=category;
         this.price=price;
         this.qty=qty;
+        this.proId=proId;
         this.payOut=this.payOut+1;
     }
 
     public String getId() {
         return id;
+    }
+
+    public String getProId() {
+        return proId;
     }
 
     public String getImage() {

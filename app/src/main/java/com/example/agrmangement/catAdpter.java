@@ -37,13 +37,13 @@ public class catAdpter extends ArrayAdapter<catSetData> {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(resource, null, false);
 
-        TextView catName = view.findViewById(R.id.catName);
-        TextView description = view.findViewById(R.id.dc);
-        ImageView image=view.findViewById(R.id.catImage);
+        TextView catName = view.findViewById(R.id.Name);
+
+        ImageView image=view.findViewById(R.id.Image);
 
         final com.example.agrmangement.catSetData catSetDataNew = catSetData.get(position);
         catName.setText(catSetDataNew.getCatName());
-        description.setText(catSetDataNew.getDescription());
+
         Picasso.get().load(catSetDataNew.getImage()).into(image);
 
         return view;
