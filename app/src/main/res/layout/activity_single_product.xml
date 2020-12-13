@@ -7,16 +7,33 @@
 
     tools:context=".singleProduct">
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1a62e7"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextColor="@color/white" />
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/imagepro"
         android:layout_width="0dp"
-        android:layout_height="140dp"
+        android:layout_height="186dp"
 
-        android:layout_marginTop="8dp"
         android:src="@drawable/no_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 
     <TextView
@@ -184,18 +201,17 @@
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
 
-
     <GridView
         android:id="@+id/MyList"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:background="#DFE3E4"
+        android:numColumns="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        android:numColumns="2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

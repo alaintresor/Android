@@ -37,33 +37,72 @@ public class product extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-        Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Products");
         setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_add_shopping_cart);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(product.this, "tool bar", Toast.LENGTH_SHORT).show();
-//            }
-//        });
         //get User Id and status
 
         final String userId = getIntent().getStringExtra("userId");
         final String status = getIntent().getStringExtra("status");
 
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), home.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
 
         linearLayout = (LinearLayout) findViewById(R.id.cat1);
+        LinearLayout cat2 = (LinearLayout) findViewById(R.id.cat2);
+        LinearLayout cat3 = (LinearLayout) findViewById(R.id.cat3);
+        LinearLayout cat4 = (LinearLayout) findViewById(R.id.cat4);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.vProgressBar);
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(product.this, SingleCategory.class);
-                intent.putExtra("userId",userId);
-                intent.putExtra("category","imboga");
-                intent.putExtra("status",status);
+                intent.putExtra("userId", userId);
+                intent.putExtra("category", "IMBOGA");
+                intent.putExtra("status", status);
+                startActivity(intent);
+            }
+        });
+
+        cat2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(product.this, SingleCategory.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("category", "IBIRIBWA");
+                intent.putExtra("status", status);
+                startActivity(intent);
+            }
+        });
+
+        cat3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(product.this, SingleCategory.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("category", "IMBUTO");
+                intent.putExtra("status", status);
+                startActivity(intent);
+            }
+        });
+
+        cat4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(product.this, SingleCategory.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("category", "AMATUNGO");
+                intent.putExtra("status", status);
                 startActivity(intent);
             }
         });
@@ -99,7 +138,7 @@ public class product extends AppCompatActivity {
                                 String description = object.getString("description");
                                 String image = object.getString("image");
                                 String category = object.getString("category");
-                                catSetData.add(new catSetData(name, description, image, id, qty, price,category));
+                                catSetData.add(new catSetData(name, description, image, id, qty, price, category));
 //
 
                             }
@@ -122,20 +161,20 @@ public class product extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id, name, image, description, qty, price,category;
+                String id, name, image, description, qty, price, category;
                 id = catSetData.get(i).getId();
                 name = catSetData.get(i).getCatName();
                 image = catSetData.get(i).getImage();
                 qty = catSetData.get(i).getQty();
                 price = catSetData.get(i).getPrice();
                 description = catSetData.get(i).getDescription();
-                category=catSetData.get(i).getCategory();
+                category = catSetData.get(i).getCategory();
 
                 Intent intent = new Intent(product.this, singleProduct.class);
 
-                intent.putExtra("userId",userId);
-                intent.putExtra("status",status);
-                intent.putExtra("category",category);
+                intent.putExtra("userId", userId);
+                intent.putExtra("status", status);
+                intent.putExtra("category", category);
                 intent.putExtra("proId", id);
                 intent.putExtra("name", name);
                 intent.putExtra("image", image);
@@ -149,6 +188,7 @@ public class product extends AppCompatActivity {
         });
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -158,11 +198,11 @@ public class product extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.shop_cart:
-                Intent intent = new Intent(product.this,cart.class);
-                final String userId=getIntent().getStringExtra("userId");
-                intent.putExtra("userId",userId);
+                Intent intent = new Intent(product.this, cart.class);
+                final String userId = getIntent().getStringExtra("userId");
+                intent.putExtra("userId", userId);
                 startActivity(intent);
                 break;
         }

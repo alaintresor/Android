@@ -1,6 +1,7 @@
 package com.example.agrmangement;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,8 +31,25 @@ public class cart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Cart");
+        setSupportActionBar(toolbar);
+
         //get user ID
         final String userId = getIntent().getStringExtra("userId");
+
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), home.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+//                Toast.makeText(product.this, "tool bar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         final TextView payOutTextView = (TextView) findViewById(R.id.payOut);
         final TextView isEmpty = (TextView) findViewById(R.id.isEmpty);
@@ -41,7 +59,7 @@ public class cart extends AppCompatActivity {
         setCartData = new ArrayList<>();
         final ListView listView = (ListView) findViewById(R.id.cartList);
         final Button order = (Button) findViewById(R.id.cartOrdering);
-        final View divider=(View) findViewById(R.id.divider3);
+        final View divider = (View) findViewById(R.id.divider3);
 
 
         final int[] payOut = {0};
@@ -78,9 +96,10 @@ public class cart extends AppCompatActivity {
                                     String proPrice = object.getString("proPrice");
                                     String proQty = object.getString("proQty");
                                     String proName = object.getString("proName");
+                                    String inStock = object.getString("inStock");
                                     payOut[0] = payOut[0] + (parseInt(proPrice) * parseInt(proQty));
 
-                                    setCartData.add(new setCartData(id, proId, proImage, proName, "u", "qty", proPrice, proQty));
+                                    setCartData.add(new setCartData(id, proId, proImage, proName, "u", "qty", proPrice, proQty, inStock));
 
                                 }
                                 cartAdpter cartAdpter = new cartAdpter(getApplicationContext(), R.layout.cart_item, setCartData);

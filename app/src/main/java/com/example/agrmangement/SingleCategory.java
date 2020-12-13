@@ -1,11 +1,16 @@
 package com.example.agrmangement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -31,6 +36,31 @@ public class SingleCategory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_category);
+//        Get data form product activity
+        final String userId = getIntent().getStringExtra("userId");
+        final String category = getIntent().getStringExtra("category");
+        final String status= getIntent().getStringExtra("status");
+
+        Toolbar toolbar =(Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(category);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent=new Intent(getApplicationContext(),product.class);
+                intent.putExtra("userId",userId);
+                intent.putExtra("status",status);
+                startActivity(intent);
+//                Toast.makeText(product.this, "tool bar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         final List<catSetData> catSetData;
         catSetData = new ArrayList<>();
 
@@ -38,10 +68,6 @@ public class SingleCategory extends AppCompatActivity {
 //
 
 
-//        Get data form product activity
-        final String userId = getIntent().getStringExtra("userId");
-        final String category = getIntent().getStringExtra("category");
-        final String status= getIntent().getStringExtra("status");
 
 
 
@@ -75,7 +101,7 @@ public class SingleCategory extends AppCompatActivity {
                                 String description = object.getString("description");
                                 String image = object.getString("image");
                                 String category=object.getString("category");
-                                Toast.makeText(getApplicationContext(), price, Toast.LENGTH_SHORT).show();
+
                                 catSetData.add(new catSetData(name, description, image, id, qty, price,category));
 //                                String email = object.getString("email");
 //                                String username = object.getString("username");
@@ -124,5 +150,26 @@ public class SingleCategory extends AppCompatActivity {
 
             }
         });
+
+    }
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            MenuInflater menuInflater = getMenuInflater();
+            menuInflater.inflate(R.menu.bottom_nav_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.shop_cart:
+                    Intent intent = new Intent(getApplicationContext(),cart.class);
+                    final String userId = getIntent().getStringExtra("userId");
+                    intent.putExtra("userId",userId);
+                    startActivity(intent);
+                    break;
+            }
+            return super.onOptionsItemSelected(item);
+
     }
 }

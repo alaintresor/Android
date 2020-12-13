@@ -72,13 +72,18 @@ public class Login extends AppCompatActivity {
                                         startActivity(intent);
 
                                         //finish();
-                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Welcome",Toast.LENGTH_SHORT).show();
                                     }
                                     else
                                     {
                                         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                                     }
 
+                                }
+                                else
+                                {
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(getApplicationContext(),"Network Error",Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else

@@ -1,6 +1,7 @@
 package com.example.agrmangement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -37,53 +38,57 @@ public class cartAdpter extends ArrayAdapter<setCartData> {
         this.context = context;
         this.resource = resource;
     }
+
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(resource, null, false);
-        TextView name=view.findViewById(R.id.cartName);
-        TextView close=view.findViewById(R.id.close);
-        ImageView img=view.findViewById(R.id.cartImage);
-        TextView price=view.findViewById(R.id.cartPrice);
-        final TextView cartQty=view.findViewById(R.id.cartQty);
-        Button add=view.findViewById(R.id.add);
-        Button reduce=view.findViewById(R.id.reduce);
-        final TextView payOut=view.findViewById(R.id.payOut);
-        final setCartData setCartDataNew= setCartData.get(position);
+        TextView name = view.findViewById(R.id.cartName);
+        TextView close = view.findViewById(R.id.close);
+        ImageView img = view.findViewById(R.id.cartImage);
+        TextView price = view.findViewById(R.id.cartPrice);
+        final TextView cartQty = view.findViewById(R.id.cartQty);
+        Button add = view.findViewById(R.id.add);
+        Button reduce = view.findViewById(R.id.reduce);
+        final TextView payOut = view.findViewById(R.id.payOut);
+        final setCartData setCartDataNew = setCartData.get(position);
         name.setText(setCartDataNew.getName());
-        price.setText(setCartDataNew.getPrice()+"Frw");
+        price.setText(setCartDataNew.getPrice() + "Frw");
         cartQty.setText(setCartDataNew.getQty());
         Picasso.get().load(setCartDataNew.getImage()).into(img);
 
-        //get payOut
-        //final String pay= String.valueOf(payOut.getText());
-
-         Toast.makeText(getContext(),"kkkk",Toast.LENGTH_SHORT);
         //add to qty
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCartDataNew.addToQty();
-//                int newPayOut=parseInt(pay)+parseInt(setCartDataNew.getPrice());
-                cartQty.setText(setCartDataNew.getQty());
-//                payOut.setText(newPayOut+"");
+
+                if (setCartDataNew.addToQty()) {
+                    cartQty.setText(setCartDataNew.getQty());
+                } else {
+                    Toast.makeText(getContext(), "You rich max Quantity", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         reduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCartDataNew.reduceToQty();
-                cartQty.setText(setCartDataNew.getQty());
+
+                if (setCartDataNew.reduceToQty()) {
+                    cartQty.setText(setCartDataNew.getQty());
+                } else {
+                    Toast.makeText(getContext(), "You rich min Quantity", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         //remove product from cart
-        final String itemId=setCartDataNew.getId();
+        final String itemId = setCartDataNew.getId();
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 //Toast.makeText(getContext(),"It worked",Toast.LENGTH_SHORT).show();
 
@@ -100,18 +105,16 @@ public class cartAdpter extends ArrayAdapter<setCartData> {
                         //Creating array for data
                         String[] data = new String[1];
                         data[0] = itemId;
-                        PutData putData = new PutData("http://192.168.43.120/android/remove_from_cart.php", "POST", field, data);
+                        PutData putData = new PutData("http://192.168.43.208/android/remove_from_cart.php", "POST", field, data);
                         if (putData.startPut()) {
                             String result = null;
                             if (putData.onComplete()) {
                                 result = putData.getResult();
-                                Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+                                setCartData.remove(position);
 
-//                                if (!result.toString().equals("Your Cart is empty")) {
-//
-//                                } else {
-//                                    //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-//                                }
+                                notifyDataSetChanged();
+
+
                             } else {
                                 Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
 
@@ -124,6 +127,6 @@ public class cartAdpter extends ArrayAdapter<setCartData> {
                 });
             }
         });
-        return  view;
+        return view;
     }
 }

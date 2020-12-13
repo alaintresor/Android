@@ -1,11 +1,16 @@
 package com.example.agrmangement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -31,6 +36,28 @@ public class singleProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_product);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Product Details");
+        setSupportActionBar(toolbar);
+
+        //get User Id and status
+
+        final String userId = getIntent().getStringExtra("userId");
+        final String status = getIntent().getStringExtra("status");
+
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), product.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("status", status);
+                startActivity(intent);
+            }
+        });
+
         final List<catSetData> catSetData;
         catSetData = new ArrayList<>();
 
@@ -47,15 +74,14 @@ public class singleProduct extends AppCompatActivity {
 
 
 //        Get data form product activity
-        final String userId = getIntent().getStringExtra("userId");
-        final String status= getIntent().getStringExtra("status");
+
         final String proId = getIntent().getStringExtra("proId");
         final String name = getIntent().getStringExtra("name");
         final String image = getIntent().getStringExtra("image");
         final String description = getIntent().getStringExtra("description");
         final String avble = getIntent().getStringExtra("qty");
         final String price = getIntent().getStringExtra("price");
-        final String category=getIntent().getStringExtra("category");
+        final String category = getIntent().getStringExtra("category");
 
         //Order product
         order.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +130,6 @@ public class singleProduct extends AppCompatActivity {
         });
 
 
-
         //add to cart
         addCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,27 +145,29 @@ public class singleProduct extends AppCompatActivity {
                             //Starting Write and Read data with URL
                             //Creating array for parameters
 
-                            String[] field = new String[6];
+                            String[] field = new String[7];
                             field[0] = "userId";
                             field[1] = "proId";
                             field[2] = "proImage";
                             field[3] = "proName";
                             field[4] = "proPrice";
                             field[5] = "proQty";
+                            field[6] = "availableQty";
                             //Creating array for data
-                            String[] data = new String[6];
+                            String[] data = new String[7];
                             data[0] = userId;
                             data[1] = proId;
                             data[2] = image;
                             data[3] = name;
                             data[4] = price;
                             data[5] = qtyInput.getText().toString();
+                            data[6] = avble;
                             PutData putData = new PutData("http://192.168.43.208/android/addToCart.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
 //                                    progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
-                                     qtyInput.setText("");
+                                    qtyInput.setText("");
                                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
 
@@ -171,13 +198,13 @@ public class singleProduct extends AppCompatActivity {
                 String[] field = new String[3];
                 field[0] = "status";
                 field[1] = "category";
-                field[2]="proId";
+                field[2] = "proId";
 
                 //Creating array for data
                 String[] data = new String[3];
                 data[0] = status;
-                data[1]=category;
-                data[2]=proId;
+                data[1] = category;
+                data[2] = proId;
                 PutData putData = new PutData("http://192.168.43.208/android/similarProducts.php", "POST", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
@@ -194,9 +221,8 @@ public class singleProduct extends AppCompatActivity {
                                 String price = object.getString("price");
                                 String description = object.getString("description");
                                 String image = object.getString("image");
-                                String category=object.getString("category");
-                                Toast.makeText(getApplicationContext(), price, Toast.LENGTH_SHORT).show();
-                                catSetData.add(new catSetData(name, description, image, id, qty, price,category));
+                                String category = object.getString("category");
+                                catSetData.add(new catSetData(name, description, image, id, qty, price, category));
 //                                String email = object.getString("email");
 //                                String username = object.getString("username");
 
@@ -220,18 +246,18 @@ public class singleProduct extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String id, name, image, description, qty, price,category;
+                String id, name, image, description, qty, price, category;
                 id = catSetData.get(i).getId();
                 name = catSetData.get(i).getCatName();
                 image = catSetData.get(i).getImage();
                 qty = catSetData.get(i).getQty();
                 price = catSetData.get(i).getPrice();
                 description = catSetData.get(i).description;
-                category=catSetData.get(i).getCategory();
+                category = catSetData.get(i).getCategory();
 
                 Intent intent = new Intent(getApplicationContext(), singleProduct.class);
                 intent.putExtra("userId", userId);
-                intent.putExtra("status",status);
+                intent.putExtra("status", status);
                 intent.putExtra("proId", id);
                 intent.putExtra("name", name);
                 intent.putExtra("image", image);
@@ -239,10 +265,30 @@ public class singleProduct extends AppCompatActivity {
                 intent.putExtra("qty", qty);
                 intent.putExtra("price", price);
                 intent.putExtra("description", description);
-                intent.putExtra("category",category);
+                intent.putExtra("category", category);
                 startActivity(intent);
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.bottom_nav_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.shop_cart:
+                Intent intent = new Intent(getApplicationContext(), cart.class);
+                final String userId = getIntent().getStringExtra("userId");
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
