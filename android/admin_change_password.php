@@ -1,20 +1,20 @@
 <?php
 session_start();
 if(!isset($_SESSION['loggedin'])|| ($_SESSION['loggedin']) !== true){
-    echo "done";
+   
 }
 include 'connection.php';
 $query = "SELECT * FROM `admin`";
 $data = mysqli_query($connection, "$query");
 while ($row = mysqli_fetch_array($data)) {
-    $username = $row[0];
-     $password = $row[1];
+    $username = $row[1];
+     $password = $row[2];
 }
 if (isset($_POST['save'])) {
-    $name = $_POST['username'];
-    $pass = $_POST['password'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $sql = "UPDATE `admin` SET `username`='$name',`password`='$pass'";
+    $sql = "UPDATE `admin` SET `email`='$username',`password`='$password'";
     $done = mysqli_query($connection, "$sql");
     if ($done) {
         echo "<script>alert('data updated well');window.open('admin_change_password.php','_self')</script>";
@@ -28,7 +28,7 @@ if (isset($_POST['save'])) {
 <html lang="en">
 
 <head>
-    <title>TalkApp</title>
+    <title>Farmers</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="style.css" rel="stylesheet">
@@ -84,10 +84,10 @@ if (isset($_POST['save'])) {
                                  </div>
                                  ";
                                 ?>
+                            <button type="submit" name="save" class="btn btn-info" >Update </button>
 
-                                <a href="home.php"> <button type="button" name="create" class="btn btn-warning">back home </button></a>
-                                <button type="submit" name="save" class="btn btn-info" style="margin-left:5.3cm;">Update </button>
-
+                                <a href="home.php"> <button type="button" style="margin-left:5.3cm;" name="create" class="btn btn-warning">back home </button></a>
+                                
                         </form>
                     </div>
                 </div>

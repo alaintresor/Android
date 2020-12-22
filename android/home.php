@@ -65,15 +65,80 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <div class="container">
     <div class="row">
-      <br><br><br><br><br><br>
-      <div class="col-sm-12 text-center jumbotron hidden-sm ">
-        <p>System Information</p>
-        <hr>
-       
+      <br><br><br><br>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Available Products</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px">198</p>
+        
+       <br><br>
       </div>
+       <div class="col-sm-1 text-center">
+      
+      </div>
+       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Orders</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px"><?php
+       //    $query=mysqli_query("select * from orders");
+          // $row=mysqli_num_rows($query);
+          // echo $row;
+
+         ?></p>
+        
+       <br><br>
+      </div>
+       <div class="col-sm-1 text-center">
+      
+      </div>
+       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Shareholders</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px">198</p>
+        
+       <br><br>
+      </div>
+      
+     
     </div>
   </div>
-  <div class="jumbotron text-center footer" style="margin-bottom:0">
+<div class="container">
+    <div class="row">
+      <br><br><br><br>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Available Products</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px">198</p>
+        
+       <br><br>
+      </div>
+       <div class="col-sm-1 text-center">
+      
+      </div>
+       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Available Products</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px">198</p>
+        
+       <br><br>
+      </div>
+       <div class="col-sm-1 text-center">
+      
+      </div>
+       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+      <h2>Available Products</h2>
+      <br><br>
+        <p style="color: grey;font-size: 35px">198</p>
+        
+       <br><br>
+      </div>
+       
+     
+      
+    </div>
+  </div>
+  <br><br>
+  <div class="jumbotron text-center footer" style="margin-bottom:120">
     &copycopyright by Habineza Jean Pierre</p>
   </div>
 </body>

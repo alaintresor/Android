@@ -12,7 +12,7 @@ $owner = $_POST['owner'];
 $desc = $_POST['desc'];
  
     $name = $_FILES['file']['name'];
-    $fullpath="http://192.168.43.208/android/images/".$name;
+    $fullpath="http://192.168.43.200/android/images/".$name;
     $target_dir = "images/";
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
   
