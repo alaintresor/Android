@@ -5,7 +5,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   header('location:index.html');
   exit;
 }
- ?>
+include "connection.php";
+?>
 
 
 <!DOCTYPE html>
@@ -37,6 +38,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -54,7 +56,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           <li><a href="orders.php">Orders</a></li>
           <li><a href="products.php">Products</a></li>
           <li><a href="shareholders.php">ShareHolders</a></li>
-          <li><a href="#">Reports</a></li>
+          <li><a href="reports.php">Reports</a></li>
           <li><a href="admin_change_password.php">modify password</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -67,74 +69,112 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <div class="row">
       <br><br><br><br>
       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Available Products</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px">198</p>
-        
-       <br><br>
-      </div>
-       <div class="col-sm-1 text-center">
-      
-      </div>
-       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Orders</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px"><?php
-       //    $query=mysqli_query("select * from orders");
-          // $row=mysqli_num_rows($query);
-          // echo $row;
+        <br>
+        <img src="images/new_orders.png" width="80" alt="">
+        <h3>New Orders</h3>
+        <br>
 
-         ?></p>
-        
-       <br><br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $orders = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM orders WHERE `status`='pending'"));
+          echo $orders[0];
+          ?>
+        </p>
+
+        <br>
       </div>
-       <div class="col-sm-1 text-center">
-      
+      <div class="col-sm-1 text-center">
+
       </div>
-       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Shareholders</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px">198</p>
-        
-       <br><br>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+        <br>
+        <img src="images/products.png" width="80" alt="">
+        <h3>Available Products</h3>
+        <br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $orders = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM product WHERE `status`='available'"));
+          echo $orders[0];
+          ?>
+        </p>
+
+        <br>
       </div>
-      
-     
+      <div class="col-sm-1 text-center">
+
+      </div>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+        <br>
+        <img src="images/toBook.png" width="80" alt="">
+        <h3>Products to Book</h3>
+        <br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $orders = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM product WHERE `status`='unavailable'"));
+          echo $orders[0];
+          ?>
+        </p>
+
+        <br>
+      </div>
+
+
     </div>
   </div>
-<div class="container">
+  <div class="container">
     <div class="row">
       <br><br><br><br>
       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Available Products</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px">198</p>
-        
-       <br><br>
+        <br>
+        <img src="images/derived.png" width="80" alt="">
+        <h3>Derived Orders</h3>
+        <br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $orders = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM orders WHERE `status`='derived'"));
+          echo $orders[0];
+          ?>
+        </p>
+
+        <br>
       </div>
-       <div class="col-sm-1 text-center">
-      
+      <div class="col-sm-1 text-center">
+
       </div>
-       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Available Products</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px">198</p>
-        
-       <br><br>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+        <br>
+        <img src="images/customers.png" width="80" alt="">
+        <h3>Customers</h3>
+        <br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $users = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM users "));
+          echo $users[0];
+          ?>
+        </p>
+
+        <br>
       </div>
-       <div class="col-sm-1 text-center">
-      
+      <div class="col-sm-1 text-center">
+
       </div>
-       <div class="col-sm-3 text-center" style="border: 2px solid cyan">
-      <h2>Available Products</h2>
-      <br><br>
-        <p style="color: grey;font-size: 35px">198</p>
-        
-       <br><br>
+      <div class="col-sm-3 text-center" style="border: 2px solid cyan">
+        <br>
+        <img src="images/shareholders.png" width="80" alt="">
+        <h3>Shareholders</h3>
+        <br>
+        <p style="color: grey;font-size: 35px">
+          <?php
+          $orders = mysqli_fetch_array(mysqli_query($connection, "SELECT COUNT(id) FROM shareholders "));
+          echo $orders[0];
+          ?>
+        </p>
+
+        <br>
       </div>
-       
-     
-      
+
+
+
     </div>
   </div>
   <br><br>
@@ -142,4 +182,5 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     &copycopyright by Habineza Jean Pierre</p>
   </div>
 </body>
+
 </html>

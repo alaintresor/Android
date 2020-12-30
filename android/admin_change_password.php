@@ -1,14 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['loggedin'])|| ($_SESSION['loggedin']) !== true){
-   
+if (!isset($_SESSION['loggedin']) || ($_SESSION['loggedin']) !== true) {
 }
 include 'connection.php';
 $query = "SELECT * FROM `admin`";
 $data = mysqli_query($connection, "$query");
 while ($row = mysqli_fetch_array($data)) {
     $username = $row[1];
-     $password = $row[2];
+    $password = $row[2];
 }
 if (isset($_POST['save'])) {
     $username = $_POST['username'];
@@ -71,23 +70,19 @@ if (isset($_POST['save'])) {
                         <form role="form" method="post" action="#">
                             <div class="form-group">
                                 <label>Username</label>
-                                <?php
-                                echo "
-                                <input class='form-control' value='$username' type='text' name='username' autocomplete='off' required />
-                                 </div>
-                                 ";
-                                ?>
-                                 <label>Password</label>
-                                <?php
-                                echo "
-                                <input class='form-control' value='$password' type='text' name='password' autocomplete='off' required />
-                                 </div>
-                                 ";
-                                ?>
-                            <button type="submit" name="save" class="btn btn-info" >Update </button>
 
-                                <a href="home.php"> <button type="button" style="margin-left:5.3cm;" name="create" class="btn btn-warning">back home </button></a>
-                                
+                                <input class='form-control' value="<?php echo $username; ?>" type='text' name='username' autocomplete='off' required />
+
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input class='form-control' value='<?php echo $password ?>' type='text' name='password' autocomplete='off' required />
+                            </div>
+
+                            <button type="submit" name="save" class="btn btn-info">Update </button>
+
+                            <a href="home.php"> <button type="button" style="margin-left:3.9cm;" name="create" class="btn btn-warning">back home </button></a>
+
                         </form>
                     </div>
                 </div>

@@ -2,11 +2,11 @@
 include 'connection.php';
 $query = "SELECT * FROM `shareholders`";
 $data = mysqli_query($connection, "$query");
-$query2="SELECT * FROM `categories`";
-$sql="SELECT * FROM `authors`";
+$query2 = "SELECT * FROM `categories`";
+$sql = "SELECT * FROM `authors`";
 
-$data2= mysqli_query($connection,"$query2");
-$data3= mysqli_query($connection,"$sql");
+$data2 = mysqli_query($connection, "$query2");
+$data3 = mysqli_query($connection, "$sql");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +50,8 @@ $data3= mysqli_query($connection,"$sql");
           <li><a href="home.php">Home</a></li>
           <li><a href="orders.php">Orders</a></li>
           <li><a href="products.php">Products</a></li>
-          <li  class="active"><a href="#">ShareHolders</a></li>
-          <li><a href="#">Reports</a></li>
+          <li class="active"><a href="#">ShareHolders</a></li>
+          <li><a href="reports.php">Reports</a></li>
           <li><a href="admin_change_password.php">modify password</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -74,15 +74,28 @@ $data3= mysqli_query($connection,"$sql");
 
             <table class="table table-striped table-hover">
               <tbody>
-                  <thead>
-                      <tr><th>Full name</th><th>Tel</th><th>Id</th><th>Gender</th></tr>
-                  </thead>
+                <thead>
+                  <tr>
+                    <th>Full name</th>
+                    <th>Tel</th>
+                    <th>Id</th>
+                    <th>Gender</th>
+                  </tr>
+                </thead>
                 <?php while ($row = mysqli_fetch_array($data)) { ?>
-                  <tr><td><?php echo $row[1]; ?></td><td><?php echo $row[2]; ?></td><td><?php echo $row[0]; ?></td><td><?php echo $row[3]; ?></td><td></td><td align='right'><a href='editBook.php?id=<?php echo $row[0]; ?>'> Edit</a></td><td align='right'> <a href='deleteBook.php?id=<?php echo $row[0]; ?>'> Delete</a></td></tr>
-               <?php  }  ?>
+                  <tr>
+                    <td><?php echo $row[1]; ?></td>
+                    <td><?php echo $row[2]; ?></td>
+                    <td><?php echo $row[0]; ?></td>
+                    <td><?php echo $row[3]; ?></td>
+                    <td></td>
+                    <td align='right'><a href='edit_shareholder.php?id=<?php echo $row[0]; ?>'> Edit</a></td>
+                    <td align='right'> <a href='deleteShareholder.php?id=<?php echo $row[0]; ?>'> Delete</a></td>
+                  </tr>
+                <?php  }  ?>
               </tbody>
             </table>
-<img src="">
+            <img src="">
           </div>
         </div>
 
@@ -93,35 +106,35 @@ $data3= mysqli_query($connection,"$sql");
         </p>
         <div class="panel panel-info">
           <div class="panel-heading">
-           ShareHolder Info
+            ShareHolder Info
           </div>
           <div class="panel-body">
-          <form   method="post" action="add_shareholder.php">
-                
-                <div class="form-group">
-                    <label for="firstname">Full Name:</label>
-                    <input type="text" class="form-control" required='' name="names" placeholder="Enter full name">
-                </div>
-                <div class="form-group">
-                    <label for="firstname">Tel:</label>
-                    <input type="text" class="form-control" required='' name="tel" placeholder="Enter Tel">
-                </div>
-                <div class="form-group">
-                    <label for="firstname">ID Number:</label>
-                    <input type="text" class="form-control" required='' maxlength="16" name="id" placeholder="Enter ID NUMBER">
-                </div>
-                 <div class="form-group">
-                    <label for="gender">Gender:</label>
-                    <select class="form-control" name="gender">
-                        <option class="disabled">......</option>
-                        <option>male</option>
-                         <option>female</option>
-                    </select>
-                </div>
+            <form method="post" action="add_shareholder.php">
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary from-control" value="Add" name="done">
-                </div>
+              <div class="form-group">
+                <label for="firstname">Full Name:</label>
+                <input type="text" class="form-control" required='' name="names" placeholder="Enter full name">
+              </div>
+              <div class="form-group">
+                <label for="firstname">Tel:</label>
+                <input type="text" class="form-control" required='' name="tel" placeholder="Enter Tel">
+              </div>
+              <div class="form-group">
+                <label for="firstname">ID Number:</label>
+                <input type="text" class="form-control" required='' maxlength="16" name="id" placeholder="Enter ID NUMBER">
+              </div>
+              <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select class="form-control" name="gender">
+                  <option class="disabled">......</option>
+                  <option>male</option>
+                  <option>female</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary from-control" value="Add" name="done">
+              </div>
 
             </form>
           </div>
@@ -135,7 +148,7 @@ $data3= mysqli_query($connection,"$sql");
 
 
   <div class="jumbotron text-center" style="margin-bottom:0">
-     &copycopyright by Habineza Jean Pierre</p>
+    &copycopyright by Habineza Jean Pierre</p>
   </div>
 
 </body>

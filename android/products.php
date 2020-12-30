@@ -51,7 +51,7 @@ $data3 = mysqli_query($connection, "$sql");
           <li><a href="orders.php">Orders</a></li>
           <li class="active"><a href="#">Products</a></li>
           <li><a href="shareholders.php">ShareHolders</a></li>
-          <li><a href="#">Reports</a></li>
+          <li><a href="reports.php">Reports</a></li>
           <li><a href="admin_change_password.php">modify password</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -90,7 +90,7 @@ $data3 = mysqli_query($connection, "$sql");
                       <td><?php echo $row[3]; ?></td>
                       <td><?php echo $row[4]; ?></td>
                       <td><?php echo $row[7]; ?></td>
-                      <td align='right'><a href=''> Edit</a></td>
+                      <td align='right'><a href='edit_product.php?id=<?php echo $row[0]; ?>'> Edit</a></td>
                       <td align='right'> <a href='deleteProduct.php?id=<?php echo $row[0]; ?>'>Delete</a></td>
                     </tr>
                   <?php  }  ?>
@@ -166,7 +166,7 @@ $data3 = mysqli_query($connection, "$sql");
                 </div>
                 <div class="form-group">
                   <label for="gender">Owner Name:</label>
-                  <select class="form-control" name="owner" id="name">
+                  <select class="form-control" id="name">
                     <option class="disabled">......</option>
 
                   </select>
