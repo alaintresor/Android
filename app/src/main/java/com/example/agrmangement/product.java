@@ -37,13 +37,23 @@ public class product extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Products");
-        setSupportActionBar(toolbar);
-        //get User Id and status
 
         final String userId = getIntent().getStringExtra("userId");
         final String status = getIntent().getStringExtra("status");
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(status.equals("available"))
+        {
+            toolbar.setTitle("Available Products");
+        }
+        else
+        {
+            toolbar.setTitle("Products to Book");
+        }
+
+        setSupportActionBar(toolbar);
+        //get User Id and status
+
 
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

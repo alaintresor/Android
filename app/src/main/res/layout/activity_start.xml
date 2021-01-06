@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recycleView">
+    android:background="@drawable/wp6398565"
+    tools:context=".start">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="203dp"
+        android:layout_height="52dp"
+        android:background="#48FFFFFF"
+        android:text="Huye Farmers Shop"
+        android:textColor="#1A2FE7"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.233" />
 </androidx.constraintlayout.widget.ConstraintLayout>
